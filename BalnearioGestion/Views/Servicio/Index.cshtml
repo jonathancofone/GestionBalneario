@@ -1,0 +1,119 @@
+﻿@model IEnumerable<BalnearioGestion.Models.ServicioBalneario>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Alquileres</h1>
+
+<form asp-action="index">
+    <div class="form-row">
+        <div class="form-group col-md-1">
+            <label class="control-label">Buscar Fecha</label>
+        </div>
+        <div class="form-group col-md-2">
+            <input type="date" class="form-control" name="buscarfecha" @ViewBag.buscarfecha />
+        </div>
+        <div class="form-group col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+
+<p>
+    <a asp-action="Create">Crear Alquiler</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaGestion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDesde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHasta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                Dni/Cuit
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlquilaCarpa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlquilaSombrilla)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAlquila)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                Observaciones
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaGestion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDesde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaHasta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Dni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlquilaCarpa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlquilaSombrilla)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAlquila)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FormaDePago)
+            </td>
+
+
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th id="total" colspan="1">Total :</th>
+            <td>$ @Model.Sum(i => i.Valor) </td>
+        </tr>
+    </tfoot>
+
+</table>

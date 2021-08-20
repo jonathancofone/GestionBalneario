@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BalnearioGestion.Models.Gastos>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Gastos</h1>
+
+<form asp-action="index">
+    <div class="form-row">
+        <div class="form-group col-md-1">
+            <label class="control-label">Buscar Fecha</label>
+        </div>
+        <div class="form-group col-md-2">
+            <input type="date" class="form-control" name="buscarfecha" @ViewBag.buscarfecha />
+        </div>
+        <div class="form-group col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+
+<p>
+    <a asp-action="Create">Crear Gasto</a>
+</p>
+<table class="table" id="tablagastos">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaGestion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaGestion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observacion)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdGastos">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdGastos">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdGastos">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th id="total" colspan="1">Total :</th>
+            <td>$ @Model.Sum(i => i.Valor) </td>
+        </tr>
+    </tfoot>
+</table>
+
